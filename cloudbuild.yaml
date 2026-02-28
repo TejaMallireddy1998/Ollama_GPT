@@ -6,12 +6,12 @@ steps:
       - '-c'
       - |
         mvn -B clean package -DskipTests
-        JAR_FILE=$(find target -maxdepth 1 -name "*.jar" ! -name "original-*.jar" | head -n 1)
-        if [ -z "$JAR_FILE" ]; then
+        JAR_FILE=$$(find target -maxdepth 1 -name "*.jar" ! -name "original-*.jar" | head -n 1)
+        if [ -z "$$JAR_FILE" ]; then
           echo "No JAR found in target/"
           exit 1
         fi
-        cp "$JAR_FILE" target/chat-service.jar
+        cp "$$JAR_FILE" target/chat-service.jar
         ls -lh target/chat-service.jar
 
   - name: 'gcr.io/cloud-builders/docker'
@@ -38,7 +38,7 @@ steps:
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     id: 'Deploy to Cloud Run'
-    entrypoint: gcloud
+    entrypoint: 'gcloud'
     args:
       - 'run'
       - 'deploy'
