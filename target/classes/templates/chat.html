@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ollama GPT</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:system-ui;
+            background: linear-gradient(135deg,#141e30,#243b55);
+            height:100vh;
+            display:flex;
+        }
+
+        /* SIDEBAR */
+        #sidebar{
+            width:260px;
+            background: linear-gradient(135deg,#0f172a,#1e293b);
+            color:white;
+            display:flex;
+            flex-direction:column;
+            border-right:1px solid rgba(255,255,255,0.08);
+        }
+
+        #sidebarHeader{
+            padding:15px;
+            display:flex;
+            justify-content:center;
+        }
+
+        #newConversationContainer{
+            display:flex;
+            justify-content:center;
+            padding:10px;
+        }
+
+        #newConversation{
+            background: linear-gradient(135deg,#7f5af0,#6246ea);
+            color:white;
+            padding:10px 20px;
+            border:none;
+            border-radius:25px;
+            cursor:pointer;
+        }
+
+        #newConversationDivider{
+            height:1px;
+            background:rgba(255,255,255,0.15);
+            margin:5px 20px 10px 20px;
+        }
+
+        #chatList{
+            flex:1;
+            overflow-y:auto;
+        }
+
+        .chat-item{
+            padding:10px;
+            margin:5px;
+            background:rgba(255,255,255,0.08);
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        /* MAIN */
+        #main{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+        }
+
+        #header{
+            padding:15px;
+            border-bottom:1px solid rgba(255,255,255,0.05);
+            display:flex;
+            justify-content:center;
+        }
+
+        #title{
+            color:white;
+            border-bottom:2px solid rgba(255,255,255,0.2);
+        }
+
+        #chatBox{
+            flex:1;
+            padding:20px;
+            overflow-y:auto;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .message{
+            max-width:60%;
+            padding:10px 15px;
+            margin:5px 0;
+            border-radius:15px;
+        }
+
+        .user{
+            background:#10a37f;
+            color:white;
+            align-self:flex-end;
+        }
+
+        .bot{
+            background:#444654;
+            color:white;
+            align-self:flex-start;
+        }
+
+        /* INPUT AREA */
+        #inputArea{
+            padding:10px;
+            border-top:1px solid rgba(255,255,255,0.1);
+        }
+
+        /* WRAPPER */
+        .input-wrapper{
+            position:relative;
+            width:100%;
+        }
+
+        /* INPUT */
+        #msg{
+            width:100%;
+            padding:12px 45px 12px 15px;
+            border:none;
+            border-radius:25px;
+            background:#40414f;
+            color:white;
+            outline:none;
+        }
+
+        /* MIC ICON */
+        .mic-icon{
+            position:absolute;
+            right:15px;
+            top:50%;
+            transform:translateY(-50%);
+            cursor:pointer;
+        }
+
+        .mic-icon svg{
+            display:block;
+        }
+
+    </style>
+
+    <script>
+
+        let chats = {};
+        let currentChat = "Conversation 1";
+        chats[currentChat] = [];
+
+        function newConversation(){
+            currentChat = "Conversation " + (Object.keys(chats).length+1);
+            chats[currentChat] = [];
+            updateChatList();
+            loadChat();
+        }
+
+        function updateChatList(){
+            let list = document.getElementById("chatList");
+            list.innerHTML="";
+            for(let chat in chats){
+                let div = document.createElement("div");
+                div.className="chat-item";
+                div.innerText=chat;
+                div.onclick=()=>{
+                    currentChat=chat;
+                    loadChat();
+                }
+                list.appendChild(div);
+            }
+        }
+
+        function loadChat(){
+            let chatBox = document.getElementById("chatBox");
+            chatBox.innerHTML="";
+            chats[currentChat].forEach(msg=>{
+                let div = document.createElement("div");
+                div.className="message "+msg.type;
+                div.innerText=msg.text;
+                chatBox.appendChild(div);
+            });
+        }
+
+        async function sendMessage(){
+
+            let msgInput=document.getElementById("msg");
+            let msg=msgInput.value.trim();
+            if(msg==="")return;
+
+            let chatBox=document.getElementById("chatBox");
+
+            let userDiv=document.createElement("div");
+            userDiv.className="message user";
+            userDiv.innerText=msg;
+            chatBox.appendChild(userDiv);
+            chats[currentChat].push({type:"user",text:msg});
+
+            msgInput.value="";
+            chatBox.scrollTop=chatBox.scrollHeight;
+
+            let response=await fetch("/api/"+encodeURIComponent(msg),{method:"POST"});
+            let data=await response.text();
+
+            let botDiv=document.createElement("div");
+            botDiv.className="message bot";
+            botDiv.innerText=data;
+            chatBox.appendChild(botDiv);
+            chats[currentChat].push({type:"bot",text:data});
+
+            chatBox.scrollTop=chatBox.scrollHeight;
+        }
+
+        function handleKey(e){
+            if(e.key==="Enter")sendMessage();
+        }
+
+        window.onload=updateChatList;
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="sidebar">
+
+    <div id="sidebarHeader">
+        <h3>Ollama GPT</h3>
+    </div>
+
+    <div id="newConversationContainer">
+        <button id="newConversation" onclick="newConversation()">+ New Conversation</button>
+    </div>
+
+    <div id="newConversationDivider"></div>
+
+    <div id="chatList"></div>
+
+</div>
+
+<div id="main">
+
+    <div id="header">
+        <h2 id="title">Ollama GPT</h2>
+    </div>
+
+    <div id="chatBox"></div>
+
+    <div id="inputArea">
+
+        <div class="input-wrapper">
+
+            <input
+                    type="text"
+                    id="msg"
+                    onkeypress="handleKey(event)"
+                    placeholder="Type message..."
+                    autocomplete="off"
+                    spellcheck="false"
+            />
+
+            <div class="mic-icon">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="20"
+                     height="20"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="#10a37f"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
