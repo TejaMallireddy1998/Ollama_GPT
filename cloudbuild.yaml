@@ -1,0 +1,11 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'docker.io/raveendra11/chat-service:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'docker.io/raveendra11/chat-service:latest']
+
+images:
+  - 'docker.io/raveendra11/chat-service:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
