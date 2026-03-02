@@ -1,6 +1,6 @@
-🤖 Containerized AI Chat Application using Spring AI & Ollama
-📌 Overview
-
+# 🤖 Containerized AI Chat Application using Spring AI & Ollama
+## 📌 Overview
+---
 This project is a containerized AI chat application built using Spring Boot and Spring AI, integrated with a locally hosted Large Language Model (LLM) using Ollama.
 
 The application enables real-time conversational AI directly from the browser.
