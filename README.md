@@ -8,6 +8,7 @@ All AI responses are generated locally without using external APIs such as OpenA
 
 The system is deployed using Docker Compose, allowing seamless communication between the backend service and the AI runtime.
 
+<br>
 
 🚀 Key Features
 
