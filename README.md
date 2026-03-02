@@ -103,3 +103,35 @@ Build the Spring Boot application container
 Start the Ollama container
 
 Enable inter-container communication
+
+### Step 3: Access the Application
+
+Open your browser and visit:
+
+```
+http://localhost:8080
+```
+
+You can now interact with the AI model through the chat interface.
+
+## 📡 API Endpoint
+```
+| Method | Endpoint | Description                                         |
+| ------ | -------- | --------------------------------------------------- |
+| POST   | `/chat`  | Sends user prompt to local LLM and returns response |
+```
+
+## 🔒 Privacy & Local Execution
+
+This application runs completely on your local machine.
+All prompts and responses remain within your system and are not sent to external AI services.
+
+## 🚀 Future Improvements
+
+Persistent chat history using PostgreSQL
+
+API documentation with Swagger
+
+User authentication
+
+Cloud deployment support
