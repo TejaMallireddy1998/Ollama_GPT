@@ -11,19 +11,19 @@ The system is deployed using Docker Compose, allowing seamless communication bet
 
 ## 🚀 Key Features
 
-Local LLM inference using Ollama
+- Local LLM inference using Ollama
 
-No external API key required
+- No external API key required
 
-REST-based AI prompt processing
+- REST-based AI prompt processing
 
-Asynchronous chat interface using Fetch API
+- Asynchronous chat interface using Fetch API
 
-Dockerized multi-container deployment
+- Dockerized multi-container deployment
 
-Inter-container communication using Docker network
+- Inter-container communication using Docker network
 
-Platform-independent setup
+- Platform-independent setup
 
 
 
@@ -55,31 +55,31 @@ Local LLM Model (Gemma)
 
 ## 🛠️ Technologies Used
 
-Java
+- Java
 
-Spring Boot
+- Spring Boot
 
-Spring AI (Ollama Starter)
+- Spring AI (Ollama Starter)
 
-Ollama
+- Ollama
 
-Docker
+- Docker
 
-Docker Compose
+- Docker Compose
 
-HTML
+- HTML
 
-JavaScript (Fetch API)
+- JavaScript (Fetch API)
 
-Maven
+- Maven
 
 ## 📦 Prerequisites
 
 Before running the application, ensure you have:
 
-Docker installed
+- Docker installed
 
-Docker Compose installed
+- Docker Compose installed
 
 ## ▶️ Running the Application
 ### Step 1: Clone the Repository
@@ -98,11 +98,11 @@ docker-compose up --build
 
 This will:
 
-Build the Spring Boot application container
+- Build the Spring Boot application container
 
-Start the Ollama container
+- Start the Ollama container
 
-Enable inter-container communication
+- Enable inter-container communication
 
 ### Step 3: Access the Application
 
@@ -128,10 +128,10 @@ All prompts and responses remain within your system and are not sent to external
 
 ## 🚀 Future Improvements
 
-Persistent chat history using PostgreSQL
+- Persistent chat history using PostgreSQL
 
-API documentation with Swagger
+- API documentation with Swagger
 
-User authentication
+- User authentication
 
-Cloud deployment support
+- Cloud deployment support
