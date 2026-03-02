@@ -51,7 +51,7 @@ steps:
       - 'managed'
       - '--allow-unauthenticated'
       - '--set-env-vars'
-      - 'OLLAMA_BASE_URL=http://34.44.59.218:11434,OLLAMA_MODEL=gemma3:1b'
+      - 'OLLAMA_BASE_URL=http://<REPLACE_IP>:11434,OLLAMA_MODEL=gemma3:1b'
 
 images:
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_IMAGE}:$SHORT_SHA'
