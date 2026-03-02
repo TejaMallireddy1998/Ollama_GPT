@@ -43,15 +43,15 @@ Local LLM Model (Gemma)
 
 ## Application Flow
 
-1.User opens the chat interface.
+1. User opens the chat interface.
 
-2.UI sends user message to /chat REST endpoint.
+2. UI sends user message to /chat REST endpoint.
 
-3.Backend forwards prompt using Spring AI ChatClient.
+3. Backend forwards prompt using Spring AI ChatClient.
 
-4.Ollama processes the request using a local LLM.
+4. Ollama processes the request using a local LLM.
 
-5.Response is returned and displayed dynamically in the UI.
+5. Response is returned and displayed dynamically in the UI.
 
 ## 🛠️ Technologies Used
 
