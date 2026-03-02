@@ -7,9 +7,9 @@ All AI responses are generated locally without using external APIs such as OpenA
 
 The system is deployed using Docker Compose, allowing seamless communication between the backend service and the AI runtime.
 
-<br>
 
-🚀 Key Features
+
+## 🚀 Key Features
 
 Local LLM inference using Ollama
 
@@ -24,3 +24,7 @@ Dockerized multi-container deployment
 Inter-container communication using Docker network
 
 Platform-independent setup
+
+
+
+## 🏗️ Architecture Overview
