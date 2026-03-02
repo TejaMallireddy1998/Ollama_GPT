@@ -28,3 +28,15 @@ Platform-independent setup
 
 
 ## 🏗️ Architecture Overview
+
+```
+Browser (Chat UI)
+        ↓
+Spring Boot Application
+        ↓
+Spring AI ChatClient
+        ↓
+Ollama Runtime (Docker Container)
+        ↓
+Local LLM Model (Gemma)
+```
