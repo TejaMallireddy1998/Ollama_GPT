@@ -117,8 +117,9 @@ You can now interact with the AI model through the chat interface.
 ## 📡 API Endpoint
 
 | Method | Endpoint | Description |
-| --- | --- | --- |
-| POST | `/chat` | Sends user prompt to local LLM and returns response |
+|-------|----------|-------------|
+| GET | `/chatPage` | Loads the chat user interface |
+| POST | `/api/{message}` | Sends a user prompt to the local LLM and returns the generated response |
 
 
 ## 🔒 Privacy & Local Execution
